@@ -9,8 +9,8 @@ public class ApplicationDbContext : DbContext
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }
-
     public DbSet<Exercise> Exercises { get; set; }
+    public DbSet<ExerciseCategory> ExerciseCategories { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Workout> Workouts { get; set; }
     public DbSet<WorkoutDay> WorkoutDays { get; set; }
@@ -21,6 +21,7 @@ public class ApplicationDbContext : DbContext
         modelBuilder.HasAnnotation("Relational:HistoryTableName", "migrations_history");
 
         modelBuilder.ApplyConfiguration(new ExerciseMapping());
+        modelBuilder.ApplyConfiguration(new ExerciseCategoryMapping());
         modelBuilder.ApplyConfiguration(new UserMapping());
         modelBuilder.ApplyConfiguration(new WorkoutMapping());
         modelBuilder.ApplyConfiguration(new WorkoutDayMapping());
