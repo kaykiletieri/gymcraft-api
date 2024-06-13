@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GymCraftAPI.Infrastructure.Repositories;
+using GymCraftAPI.Infrastructure.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace GymCraftAPI.Infrastructure.Extensions;
 
@@ -10,6 +12,19 @@ public static class DataExtensions
         {
             options.UseNpgsql(connectionString);
         });
+
+        return services;
+    }
+
+    public static IServiceCollection AddRepositories(this IServiceCollection services)
+    {
+        services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+
+        services.AddScoped<IExerciseRepository, ExerciseRepository>();
+        services.AddScoped<IExerciseCategoryRepository, ExerciseCategoryRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IWorkoutDayRepository, WorkoutDayRepository>();
+        services.AddScoped<IWorkoutRepository, WorkoutRepository>();
 
         return services;
     }

@@ -14,6 +14,7 @@ if (connectionString != null)
     builder.Services.AddEntityFramework(connectionString);
 }
 
+builder.Services.AddRepositories();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
