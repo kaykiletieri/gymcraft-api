@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GymCraftAPI.Infrastructure.Mappings;
 
-public class ExerciseMapping : IEntityTypeConfiguration<Exercise>
+public class ExerciseCategoryMapping : IEntityTypeConfiguration<ExerciseCategory>
 {
-    public void Configure(EntityTypeBuilder<Exercise> builder)
+    public void Configure(EntityTypeBuilder<ExerciseCategory> builder)
     {
-        builder.ToTable("exercises");
+        builder.ToTable("exercise_categories");
 
         builder.HasKey(e => e.Uuid);
 
@@ -21,12 +21,7 @@ public class ExerciseMapping : IEntityTypeConfiguration<Exercise>
             .IsRequired();
 
         builder.Property(e => e.Description)
-            .HasColumnName("description")
-            .IsRequired();
-
-        builder.Property(e => e.CategoryUuid)
-            .HasColumnName("category_uuid")
-            .IsRequired();
+            .HasColumnName("description");
 
         builder.Property(e => e.CreatedAt)
             .HasColumnName("created_at")
@@ -39,8 +34,8 @@ public class ExerciseMapping : IEntityTypeConfiguration<Exercise>
         builder.Property(e => e.DeletedAt)
             .HasColumnName("deleted_at");
 
-        builder.HasOne(e => e.Category)
-            .WithMany()
+        builder.HasMany(e => e.Exercises)
+            .WithOne(e => e.Category)
             .HasForeignKey(e => e.CategoryUuid);
     }
 }
