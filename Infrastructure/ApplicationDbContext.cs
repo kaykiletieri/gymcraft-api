@@ -1,4 +1,5 @@
 ﻿using GymCraftAPI.Domain.Entities;
+using GymCraftAPI.Infrastructure.Mappings;
 using Microsoft.EntityFrameworkCore;
 
 namespace GymCraftAPI.Infrastructure;
@@ -18,6 +19,11 @@ public class ApplicationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasAnnotation("Relational:HistoryTableName", "migrations_history");
+
+        modelBuilder.ApplyConfiguration(new ExerciseMapping());
+        modelBuilder.ApplyConfiguration(new UserMapping());
+        modelBuilder.ApplyConfiguration(new WorkoutMapping());
+        modelBuilder.ApplyConfiguration(new WorkoutDayMapping());
 
         base.OnModelCreating(modelBuilder);
     }
