@@ -1,5 +1,7 @@
-﻿using GymCraftAPI.Application.Services.Interfaces;
+﻿using GymCraftAPI.Application.DTOs;
+using GymCraftAPI.Application.Services.Interfaces;
 using GymCraftAPI.Domain.Entities;
+using GymCraftAPI.Infrastructure.Mappers.Interfaces;
 using GymCraftAPI.Infrastructure.Repositories.Interfaces;
 
 namespace GymCraftAPI.Application.Services;
@@ -7,10 +9,12 @@ namespace GymCraftAPI.Application.Services;
 public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
+    private readonly IUserMapper _userMapper;
 
-    public UserService(IUserRepository userRepository)
+    public UserService(IUserRepository userRepository, IUserMapper userMapper)
     {
         _userRepository = userRepository;
+        _userMapper = userMapper;
     }
 
     public async Task<IEnumerable<User>> GetAllAsync()
@@ -23,8 +27,10 @@ public class UserService : IUserService
         return await _userRepository.GetActiveByIdAsync(userUuid);
     }
 
-    public async Task<User> CreateAsync(User user)
+    public async Task<User> CreateAsync(CreateUserDTO userDto)
     {
+        User user = _userMapper.MapToEntitie(userDto);
+
         return await _userRepository.CreateAsync(user);
     }
 

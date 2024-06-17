@@ -1,4 +1,5 @@
-﻿using GymCraftAPI.Application.Services.Interfaces;
+﻿using GymCraftAPI.Application.DTOs;
+using GymCraftAPI.Application.Services.Interfaces;
 using GymCraftAPI.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,17 +48,17 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateUser([FromBody] User user)
-    {
+    public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO user)
+    {/*
         try
-        {
-            var createdUser = await _userService.CreateAsync(user);
-            return CreatedAtAction(nameof(GetUserById), new { userUuid = createdUser.Uuid }, createdUser);
-        }
+        {*/
+        var createdUser = await _userService.CreateAsync(user);
+        return CreatedAtAction(nameof(GetUserById), new { userUuid = createdUser.Uuid }, createdUser);
+        /*}
         catch (Exception ex)
         {
             return StatusCode(500, ex.Message);
-        }
+        }*/
     }
 
     [HttpPut]

@@ -1,4 +1,6 @@
-﻿using GymCraftAPI.Infrastructure.Repositories;
+﻿using GymCraftAPI.Infrastructure.Mappers;
+using GymCraftAPI.Infrastructure.Mappers.Interfaces;
+using GymCraftAPI.Infrastructure.Repositories;
 using GymCraftAPI.Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,6 +28,13 @@ public static class DataExtensions
         services.AddScoped<IWorkoutDayRepository, WorkoutDayRepository>();
         services.AddScoped<IWorkoutRepository, WorkoutRepository>();
         services.AddScoped<IWorkoutExerciseRepository, WorkoutExerciseRepository>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddMappers(this IServiceCollection services)
+    {
+        services.AddScoped<IUserMapper, UserMapper>();
 
         return services;
     }
