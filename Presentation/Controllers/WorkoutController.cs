@@ -79,7 +79,7 @@ public class WorkoutController : ControllerBase
     {
         try
         {
-            await _workoutService.DeleteAsync(workoutUuid);
+            await _workoutService.SoftDeleteAsync(workoutUuid);
             return NoContent();
         }
         catch (Exception ex)

@@ -12,6 +12,7 @@ public static class ApplicationExtensions
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IWorkoutDayService, WorkoutDayService>();
         services.AddScoped<IWorkoutService, WorkoutService>();
+        services.AddScoped<IWorkoutExerciseService, WorkoutExerciseService>();
 
         return services;
     }

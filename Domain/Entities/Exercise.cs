@@ -6,4 +6,5 @@ public class Exercise : EntityBase
     public string? Description { get; set; }
     public required Guid CategoryUuid { get; set; }
     public ExerciseCategory? Category { get; set; }
+    public required ICollection<WorkoutExercise> WorkoutExercises { get; set; }
 }

@@ -25,6 +25,7 @@ public static class DataExtensions
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IWorkoutDayRepository, WorkoutDayRepository>();
         services.AddScoped<IWorkoutRepository, WorkoutRepository>();
+        services.AddScoped<IWorkoutExerciseRepository, WorkoutExerciseRepository>();
 
         return services;
     }

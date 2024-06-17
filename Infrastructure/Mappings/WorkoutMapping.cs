@@ -29,6 +29,14 @@ public class WorkoutMapping : IEntityTypeConfiguration<Workout>
         builder.Property(w => w.EndDate)
             .HasColumnName("end_date");
 
+        builder.Property(w => w.IsActive)
+            .HasColumnName("is_active")
+            .IsRequired();
+
+        builder.Property(w => w.UserUuid)
+            .HasColumnName("user_uuid")
+            .IsRequired();
+
         builder.Property(w => w.CreatedAt)
             .HasColumnName("created_at")
             .IsRequired();
@@ -43,5 +51,9 @@ public class WorkoutMapping : IEntityTypeConfiguration<Workout>
         builder.HasMany(w => w.WorkoutDays)
             .WithOne(wd => wd.Workout)
             .HasForeignKey(wd => wd.WorkoutUuid);
+
+        builder.HasOne(w => w.User)
+            .WithMany(u => u.Workouts)
+            .HasForeignKey(w => w.UserUuid);
     }
 }

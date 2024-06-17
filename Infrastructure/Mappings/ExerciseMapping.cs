@@ -40,7 +40,7 @@ public class ExerciseMapping : IEntityTypeConfiguration<Exercise>
             .HasColumnName("deleted_at");
 
         builder.HasOne(e => e.Category)
-            .WithMany()
+            .WithMany(e => e.Exercises)
             .HasForeignKey(e => e.CategoryUuid);
     }
 }

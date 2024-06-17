@@ -20,6 +20,10 @@ public class WorkoutDayMapping : IEntityTypeConfiguration<WorkoutDay>
             .HasColumnName("day")
             .IsRequired();
 
+        builder.Property(wd => wd.WorkoutUuid)
+            .HasColumnName("workout_uuid")
+            .IsRequired();
+
         builder.Property(wd => wd.CreatedAt)
             .HasColumnName("created_at")
             .IsRequired();
@@ -30,10 +34,6 @@ public class WorkoutDayMapping : IEntityTypeConfiguration<WorkoutDay>
 
         builder.Property(wd => wd.DeletedAt)
             .HasColumnName("deleted_at");
-
-        builder.HasMany(wd => wd.Exercises)
-            .WithOne()
-            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(wd => wd.Workout)
             .WithMany(w => w.WorkoutDays)
