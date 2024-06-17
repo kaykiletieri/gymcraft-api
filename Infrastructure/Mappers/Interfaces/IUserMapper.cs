@@ -5,5 +5,5 @@ namespace GymCraftAPI.Infrastructure.Mappers.Interfaces;
 
 public interface IUserMapper
 {
-    User MapToEntitie(CreateUserDTO userDto);
+    User MapToEntity(CreateUserDTO userDto);
 }

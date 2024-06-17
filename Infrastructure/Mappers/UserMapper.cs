@@ -6,7 +6,7 @@ namespace GymCraftAPI.Infrastructure.Mappers;
 
 public class UserMapper : IUserMapper
 {
-    public User MapToEntitie(CreateUserDTO userDto)
+    public User MapToEntity(CreateUserDTO userDto)
     {
         return new User
         {
