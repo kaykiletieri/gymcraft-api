@@ -1,5 +1,5 @@
-﻿using GymCraftAPI.Application.Services.Interfaces;
-using GymCraftAPI.Domain.Entities;
+﻿using GymCraftAPI.Application.DTOs;
+using GymCraftAPI.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymCraftAPI.Presentation.Controllers;
@@ -19,7 +19,7 @@ public class ExerciseCategoryController : ControllerBase
     {
         try
         {
-            var exerciseCategories = await _exerciseCategoryService.GetAllAsync();
+            IEnumerable<ExerciseCategoryDTO> exerciseCategories = await _exerciseCategoryService.GetAllAsync();
             return Ok(exerciseCategories);
         }
         catch (Exception ex)
@@ -33,7 +33,7 @@ public class ExerciseCategoryController : ControllerBase
     {
         try
         {
-            var exerciseCategory = await _exerciseCategoryService.GetByIdAsync(exerciseCategoryUuid);
+            ExerciseCategoryDTO? exerciseCategory = await _exerciseCategoryService.GetByIdAsync(exerciseCategoryUuid);
             if (exerciseCategory == null)
             {
                 return NotFound();
@@ -47,11 +47,11 @@ public class ExerciseCategoryController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateExerciseCategory([FromBody] ExerciseCategory exerciseCategory)
+    public async Task<IActionResult> CreateExerciseCategory([FromBody] CreateExerciseCategoryDTO exerciseCategory)
     {
         try
         {
-            var createdExerciseCategory = await _exerciseCategoryService.CreateAsync(exerciseCategory);
+            ExerciseCategoryDTO createdExerciseCategory = await _exerciseCategoryService.CreateAsync(exerciseCategory);
             return CreatedAtAction(nameof(GetExerciseCategoryById), new { exerciseCategoryUuid = createdExerciseCategory.Uuid }, createdExerciseCategory);
         }
         catch (Exception ex)
@@ -60,12 +60,12 @@ public class ExerciseCategoryController : ControllerBase
         }
     }
 
-    [HttpPut]
-    public async Task<IActionResult> UpdateExerciseCategory([FromBody] ExerciseCategory exerciseCategory)
+    [HttpPut("{exerciseCategoryUuid}")]
+    public async Task<IActionResult> UpdateExerciseCategory(Guid exerciseCategoryUuid, [FromBody] UpdateExerciseCategoryDTO exerciseCategory)
     {
         try
         {
-            var updatedExerciseCategory = await _exerciseCategoryService.UpdateAsync(exerciseCategory);
+            ExerciseCategoryDTO updatedExerciseCategory = await _exerciseCategoryService.UpdateAsync(exerciseCategoryUuid, exerciseCategory);
             return Ok(updatedExerciseCategory);
         }
         catch (Exception ex)

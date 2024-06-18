@@ -35,6 +35,7 @@ public static class DataExtensions
     public static IServiceCollection AddMappers(this IServiceCollection services)
     {
         services.AddScoped<IUserMapper, UserMapper>();
+        services.AddScoped<IExerciseCategoryMapper, ExerciseCategoryMapper>();
 
         return services;
     }
