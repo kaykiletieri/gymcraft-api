@@ -1,13 +1,12 @@
 ﻿using GymCraftAPI.Application.DTOs;
-using GymCraftAPI.Domain.Entities;
 
 namespace GymCraftAPI.Application.Services.Interfaces;
 
 public interface IUserService
 {
-    Task<IEnumerable<User>> GetAllAsync();
-    Task<User?> GetByIdAsync(Guid userUuid);
-    Task<User> CreateAsync(CreateUserDTO userDto);
-    Task<User> UpdateAsync(User user);
+    Task<IEnumerable<UserDTO>> GetAllAsync();
+    Task<UserDTO?> GetByIdAsync(Guid userUuid);
+    Task<UserDTO> CreateAsync(CreateUserDTO userDto);
+    Task<UserDTO> UpdateAsync(Guid userUuid, UpdateUserDTO userDto);
     Task SoftDeleteAsync(Guid userUuid);
 }

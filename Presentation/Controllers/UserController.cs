@@ -1,6 +1,5 @@
 ﻿using GymCraftAPI.Application.DTOs;
 using GymCraftAPI.Application.Services.Interfaces;
-using GymCraftAPI.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymCraftAPI.Presentation.Controllers;
@@ -20,7 +19,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            var users = await _userService.GetAllAsync();
+            IEnumerable<UserDTO> users = await _userService.GetAllAsync();
             return Ok(users);
         }
         catch (Exception ex)
@@ -34,7 +33,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            var user = await _userService.GetByIdAsync(userUuid);
+            UserDTO? user = await _userService.GetByIdAsync(userUuid);
             if (user == null)
             {
                 return NotFound();
@@ -49,24 +48,24 @@ public class UserController : ControllerBase
 
     [HttpPost]
     public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO user)
-    {/*
-        try
-        {*/
-        var createdUser = await _userService.CreateAsync(user);
-        return CreatedAtAction(nameof(GetUserById), new { userUuid = createdUser.Uuid }, createdUser);
-        /*}
-        catch (Exception ex)
-        {
-            return StatusCode(500, ex.Message);
-        }*/
-    }
-
-    [HttpPut]
-    public async Task<IActionResult> UpdateUser([FromBody] User user)
     {
         try
         {
-            var updatedUser = await _userService.UpdateAsync(user);
+            UserDTO createdUser = await _userService.CreateAsync(user);
+            return CreatedAtAction(nameof(GetUserById), new { userUuid = createdUser.Uuid }, createdUser);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
+
+    [HttpPut("{userUuid}")]
+    public async Task<IActionResult> UpdateUser(Guid userUuid, [FromBody] UpdateUserDTO user)
+    {
+        try
+        {
+            UserDTO updatedUser = await _userService.UpdateAsync(userUuid, user);
             return Ok(updatedUser);
         }
         catch (Exception ex)

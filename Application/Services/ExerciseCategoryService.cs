@@ -1,4 +1,6 @@
-﻿using GymCraftAPI.Application.DTOs;
+﻿
+using GymCraftAPI.Application.DTOs;
+using GymCraftAPI.Application.Helpers;
 using GymCraftAPI.Application.Services.Interfaces;
 using GymCraftAPI.Domain.Entities;
 using GymCraftAPI.Infrastructure.Mappers.Interfaces;
@@ -10,11 +12,13 @@ public class ExerciseCategoryService : IExerciseCategoryService
 {
     private readonly IExerciseCategoryRepository _exerciseCategoryRepository;
     private readonly IExerciseCategoryMapper _exerciseCategoryMapper;
+    private readonly IPropertyUpdater _propertyUpdater;
 
-    public ExerciseCategoryService(IExerciseCategoryRepository exerciseCategoryRepository, IExerciseCategoryMapper exerciseCategoryMapper)
+    public ExerciseCategoryService(IExerciseCategoryRepository exerciseCategoryRepository, IExerciseCategoryMapper exerciseCategoryMapper, IPropertyUpdater propertyUpdater)
     {
         _exerciseCategoryRepository = exerciseCategoryRepository;
         _exerciseCategoryMapper = exerciseCategoryMapper;
+        _propertyUpdater = propertyUpdater;
     }
 
     public async Task<IEnumerable<ExerciseCategoryDTO>> GetAllAsync()
@@ -44,15 +48,8 @@ public class ExerciseCategoryService : IExerciseCategoryService
     {
         ExerciseCategory? exerciseCategory = await _exerciseCategoryRepository.GetActiveByIdAsync(exerciseCategoryUuid) ?? throw new KeyNotFoundException("Exercise category not found");
 
-        if (!string.IsNullOrEmpty(exerciseCategoryDto.Name))
-        {
-            exerciseCategory.Name = exerciseCategoryDto.Name;
-        }
-
-        if (!string.IsNullOrEmpty(exerciseCategoryDto.Description))
-        {
-            exerciseCategory.Description = exerciseCategoryDto.Description;
-        }
+        _propertyUpdater.UpdatePropertyIfNotEmpty(value => exerciseCategory.Name = value, exerciseCategoryDto.Name);
+        _propertyUpdater.UpdatePropertyIfNotEmpty(value => exerciseCategory.Description = value, exerciseCategoryDto.Description);
 
         exerciseCategory.UpdatedAt = DateTime.UtcNow;
 

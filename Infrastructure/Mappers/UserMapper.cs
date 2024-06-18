@@ -18,4 +18,30 @@ public class UserMapper : IUserMapper
             UpdatedAt = DateTime.UtcNow,
         };
     }
+
+    public UserDTO MapToDto(User user)
+    {
+        return new UserDTO
+        {
+            Uuid = user.Uuid,
+            Name = user.Name,
+            Email = user.Email,
+            PasswordHash = user.PasswordHash,
+            CreatedAt = user.CreatedAt,
+            UpdatedAt = user.UpdatedAt,
+        };
+    }
+
+    public IEnumerable<UserDTO> MapToDto(IEnumerable<User> users)
+    {
+        return users.Select(user => new UserDTO
+        {
+            Uuid = user.Uuid,
+            Name = user.Name,
+            Email = user.Email,
+            PasswordHash = user.PasswordHash,
+            CreatedAt = user.CreatedAt,
+            UpdatedAt = user.UpdatedAt,
+        });
+    }
 }

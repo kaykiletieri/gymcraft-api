@@ -1,4 +1,5 @@
-﻿using GymCraftAPI.Application.Services;
+﻿using GymCraftAPI.Application.Helpers;
+using GymCraftAPI.Application.Services;
 using GymCraftAPI.Application.Services.Interfaces;
 
 namespace GymCraftAPI.Infrastructure.Extensions;
@@ -13,6 +14,13 @@ public static class ApplicationExtensions
         services.AddScoped<IWorkoutDayService, WorkoutDayService>();
         services.AddScoped<IWorkoutService, WorkoutService>();
         services.AddScoped<IWorkoutExerciseService, WorkoutExerciseService>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddHelpers(this IServiceCollection services)
+    {
+        services.AddScoped<IPropertyUpdater, PropertyUpdater>();
 
         return services;
     }

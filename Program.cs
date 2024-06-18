@@ -16,6 +16,7 @@ if (connectionString != null)
 
 builder.Services.AddRepositories();
 builder.Services.AddMappers();
+builder.Services.AddHelpers();
 builder.Services.AddServices();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
