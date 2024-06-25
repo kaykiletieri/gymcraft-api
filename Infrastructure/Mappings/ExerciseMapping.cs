@@ -21,8 +21,7 @@ public class ExerciseMapping : IEntityTypeConfiguration<Exercise>
             .IsRequired();
 
         builder.Property(e => e.Description)
-            .HasColumnName("description")
-            .IsRequired();
+            .HasColumnName("description");
 
         builder.Property(e => e.CategoryUuid)
             .HasColumnName("category_uuid")

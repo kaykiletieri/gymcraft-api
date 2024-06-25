@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GymCraftAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240617124930_Initial")]
+    [Migration("20240624142628_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -45,7 +45,6 @@ namespace GymCraftAPI.Migrations
                         .HasColumnName("deleted_at");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("description");
 

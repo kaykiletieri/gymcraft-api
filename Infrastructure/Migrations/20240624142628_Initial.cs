@@ -49,7 +49,7 @@ public partial class Initial : Migration
             {
                 uuid = table.Column<Guid>(type: "uuid", nullable: false),
                 name = table.Column<string>(type: "text", nullable: false),
-                description = table.Column<string>(type: "text", nullable: false),
+                description = table.Column<string>(type: "text", nullable: true),
                 category_uuid = table.Column<Guid>(type: "uuid", nullable: false),
                 created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                 updated_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
