@@ -27,30 +27,15 @@ public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : 
 
     public async Task<TEntity> CreateAsync(TEntity entity)
     {
-        if (entity == null)
-        {
-            throw new ArgumentException("Entity cannot be null");
-        }
-
         await _dbSet.AddAsync(entity);
         await _context.SaveChangesAsync();
 
         return entity;
     }
 
+
     public async Task<TEntity> UpdateAsync(TEntity entity)
     {
-        if (entity == null)
-        {
-            throw new ArgumentException("Entity cannot be null");
-        }
-
-        TEntity? existingEntity = await GetActiveByIdAsync(entity.Uuid) ?? throw new InvalidOperationException($"Entity with UUID {entity.Uuid} not found");
-
-        _context.Entry(existingEntity).CurrentValues.SetValues(entity);
-
-        existingEntity.UpdateTimestamps();
-
         _dbSet.Update(entity);
         await _context.SaveChangesAsync();
 
