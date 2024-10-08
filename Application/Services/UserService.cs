@@ -1,9 +1,9 @@
-﻿using GymCraftAPI.Application.DTOs;
-using GymCraftAPI.Application.Helpers;
+﻿using GymCraftAPI.Application.DTOs.User;
+using GymCraftAPI.Application.Helpers.Interfaces;
 using GymCraftAPI.Application.Services.Interfaces;
 using GymCraftAPI.Domain.Entities;
+using GymCraftAPI.Domain.Interfaces;
 using GymCraftAPI.Infrastructure.Mappers.Interfaces;
-using GymCraftAPI.Infrastructure.Repositories.Interfaces;
 
 namespace GymCraftAPI.Application.Services;
 
@@ -61,6 +61,8 @@ public class UserService : IUserService
 
     public async Task SoftDeleteAsync(Guid userUuid)
     {
+        _ = await _userRepository.GetActiveByIdAsync(userUuid) ?? throw new KeyNotFoundException("User not found");
+
         await _userRepository.SoftDeleteAsync(userUuid);
     }
 }

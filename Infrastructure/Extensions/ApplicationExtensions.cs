@@ -1,4 +1,5 @@
 ﻿using GymCraftAPI.Application.Helpers;
+using GymCraftAPI.Application.Helpers.Interfaces;
 using GymCraftAPI.Application.Services;
 using GymCraftAPI.Application.Services.Interfaces;
 

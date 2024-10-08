@@ -1,12 +1,12 @@
-﻿using GymCraftAPI.Domain.Entities;
+﻿using GymCraftAPI.Application.DTOs.Exercise;
 
 namespace GymCraftAPI.Application.Services.Interfaces;
 
 public interface IExerciseService
 {
-    Task<IEnumerable<Exercise>> GetAllAsync();
-    Task<Exercise?> GetByIdAsync(Guid exerciseUuid);
-    Task<Exercise> CreateAsync(Exercise exercise);
-    Task<Exercise> UpdateAsync(Exercise exercise);
+    Task<IEnumerable<ExerciseDTO>> GetAllAsync();
+    Task<ExerciseDTO?> GetByIdAsync(Guid exerciseUuid);
+    Task<ExerciseDTO> CreateAsync(CreateExerciseDTO exerciseDto);
+    Task<ExerciseDTO> UpdateAsync(Guid exerciseUuid, UpdateExerciseDTO exerciseDto);
     Task SoftDeleteAsync(Guid exerciseUuid);
 }

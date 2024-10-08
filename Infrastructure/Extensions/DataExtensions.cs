@@ -1,7 +1,7 @@
-﻿using GymCraftAPI.Infrastructure.Mappers;
+﻿using GymCraftAPI.Domain.Interfaces;
+using GymCraftAPI.Infrastructure.Mappers;
 using GymCraftAPI.Infrastructure.Mappers.Interfaces;
 using GymCraftAPI.Infrastructure.Repositories;
-using GymCraftAPI.Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace GymCraftAPI.Infrastructure.Extensions;
@@ -36,6 +36,7 @@ public static class DataExtensions
     {
         services.AddScoped<IUserMapper, UserMapper>();
         services.AddScoped<IExerciseCategoryMapper, ExerciseCategoryMapper>();
+        services.AddScoped<IExerciseMapper, ExerciseMapper>();
 
         return services;
     }

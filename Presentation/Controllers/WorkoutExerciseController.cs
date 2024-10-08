@@ -19,7 +19,7 @@ public class WorkoutExerciseController : ControllerBase
     {
         try
         {
-            var workoutExercises = await _workoutExerciseService.GetAllAsync();
+            IEnumerable<WorkoutExercise> workoutExercises = await _workoutExerciseService.GetAllAsync();
             return Ok(workoutExercises);
         }
         catch (Exception ex)
@@ -33,7 +33,7 @@ public class WorkoutExerciseController : ControllerBase
     {
         try
         {
-            var workoutExercise = await _workoutExerciseService.GetByIdAsync(workoutExerciseUuid);
+            WorkoutExercise? workoutExercise = await _workoutExerciseService.GetByIdAsync(workoutExerciseUuid);
             if (workoutExercise == null)
             {
                 return NotFound();
@@ -51,7 +51,7 @@ public class WorkoutExerciseController : ControllerBase
     {
         try
         {
-            var createdWorkoutExercise = await _workoutExerciseService.CreateAsync(workoutExercise);
+            WorkoutExercise createdWorkoutExercise = await _workoutExerciseService.CreateAsync(workoutExercise);
             return CreatedAtAction(nameof(GetWorkoutExerciseById), new { workoutExerciseUuid = createdWorkoutExercise.Uuid }, createdWorkoutExercise);
         }
         catch (Exception ex)
@@ -65,7 +65,7 @@ public class WorkoutExerciseController : ControllerBase
     {
         try
         {
-            var updatedWorkoutExercise = await _workoutExerciseService.UpdateAsync(workoutExercise);
+            WorkoutExercise updatedWorkoutExercise = await _workoutExerciseService.UpdateAsync(workoutExercise);
             return Ok(updatedWorkoutExercise);
         }
         catch (Exception ex)
@@ -74,13 +74,17 @@ public class WorkoutExerciseController : ControllerBase
         }
     }
 
-    [HttpDelete]
+    [HttpDelete("{workoutExerciseUuid}")]
     public async Task<IActionResult> DeleteWorkoutExercise(Guid workoutExerciseUuid)
     {
         try
         {
             await _workoutExerciseService.SoftDeleteAsync(workoutExerciseUuid);
             return NoContent();
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
         }
         catch (Exception ex)
         {

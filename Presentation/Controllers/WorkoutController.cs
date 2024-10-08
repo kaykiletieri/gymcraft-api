@@ -19,7 +19,7 @@ public class WorkoutController : ControllerBase
     {
         try
         {
-            var workouts = await _workoutService.GetAllAsync();
+            IEnumerable<Workout> workouts = await _workoutService.GetAllAsync();
             return Ok(workouts);
         }
         catch (Exception ex)
@@ -33,7 +33,7 @@ public class WorkoutController : ControllerBase
     {
         try
         {
-            var workout = await _workoutService.GetByIdAsync(workoutUuid);
+            Workout? workout = await _workoutService.GetByIdAsync(workoutUuid);
             if (workout == null)
             {
                 return NotFound();
@@ -51,7 +51,7 @@ public class WorkoutController : ControllerBase
     {
         try
         {
-            var createdWorkout = await _workoutService.CreateAsync(workout);
+            Workout createdWorkout = await _workoutService.CreateAsync(workout);
             return CreatedAtAction(nameof(GetWorkoutById), new { workoutUuid = createdWorkout.Uuid }, createdWorkout);
         }
         catch (Exception ex)
@@ -65,7 +65,7 @@ public class WorkoutController : ControllerBase
     {
         try
         {
-            var updatedWorkout = await _workoutService.UpdateAsync(workout);
+            Workout updatedWorkout = await _workoutService.UpdateAsync(workout);
             return Ok(updatedWorkout);
         }
         catch (Exception ex)
@@ -81,6 +81,10 @@ public class WorkoutController : ControllerBase
         {
             await _workoutService.SoftDeleteAsync(workoutUuid);
             return NoContent();
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
         }
         catch (Exception ex)
         {

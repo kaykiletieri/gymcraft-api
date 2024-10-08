@@ -1,4 +1,4 @@
-﻿using GymCraftAPI.Application.DTOs;
+﻿using GymCraftAPI.Application.DTOs.User;
 using GymCraftAPI.Domain.Entities;
 using GymCraftAPI.Infrastructure.Mappers.Interfaces;
 
@@ -34,14 +34,6 @@ public class UserMapper : IUserMapper
 
     public IEnumerable<UserDTO> MapToDto(IEnumerable<User> users)
     {
-        return users.Select(user => new UserDTO
-        {
-            Uuid = user.Uuid,
-            Name = user.Name,
-            Email = user.Email,
-            PasswordHash = user.PasswordHash,
-            CreatedAt = user.CreatedAt,
-            UpdatedAt = user.UpdatedAt,
-        });
+        return users.Select(MapToDto);
     }
 }

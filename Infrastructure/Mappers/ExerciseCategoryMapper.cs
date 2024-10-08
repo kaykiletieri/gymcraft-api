@@ -1,4 +1,4 @@
-﻿using GymCraftAPI.Application.DTOs;
+﻿using GymCraftAPI.Application.DTOs.ExerciseCategory;
 using GymCraftAPI.Domain.Entities;
 using GymCraftAPI.Infrastructure.Mappers.Interfaces;
 
@@ -32,13 +32,6 @@ public class ExerciseCategoryMapper : IExerciseCategoryMapper
 
     public IEnumerable<ExerciseCategoryDTO> MapToDto(IEnumerable<ExerciseCategory> exerciseCategories)
     {
-        return exerciseCategories.Select(exerciseCategory => new ExerciseCategoryDTO
-        {
-            Uuid = exerciseCategory.Uuid,
-            CategoryName = exerciseCategory.Name,
-            Description = exerciseCategory.Description,
-            CreatedAt = exerciseCategory.CreatedAt,
-            UpdatedAt = exerciseCategory.UpdatedAt,
-        });
+        return exerciseCategories.Select(MapToDto);
     }
 }

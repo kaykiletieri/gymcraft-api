@@ -1,5 +1,5 @@
 ﻿using GymCraftAPI.Domain.Entities;
-using GymCraftAPI.Infrastructure.Repositories.Interfaces;
+using GymCraftAPI.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace GymCraftAPI.Infrastructure.Repositories;
@@ -47,8 +47,9 @@ public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : 
 
         TEntity? existingEntity = await GetActiveByIdAsync(entity.Uuid) ?? throw new InvalidOperationException($"Entity with UUID {entity.Uuid} not found");
 
-        entity.CreatedAt = existingEntity.CreatedAt;
-        entity.UpdatedAt = DateTime.UtcNow;
+        _context.Entry(existingEntity).CurrentValues.SetValues(entity);
+
+        existingEntity.UpdateTimestamps();
 
         _dbSet.Update(entity);
         await _context.SaveChangesAsync();
@@ -60,7 +61,7 @@ public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : 
     {
         TEntity entity = await GetActiveByIdAsync(uuid) ?? throw new InvalidOperationException($"Entity with UUID {uuid} not found");
 
-        entity.DeletedAt = DateTime.UtcNow;
+        entity.SoftDelete();
 
         _dbSet.Update(entity);
         await _context.SaveChangesAsync();

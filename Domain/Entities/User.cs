@@ -1,9 +1,17 @@
-﻿namespace GymCraftAPI.Domain.Entities;
+﻿using GymCraftAPI.Domain.ValueObjects;
+
+namespace GymCraftAPI.Domain.Entities;
 
 public class User : EntityBase
 {
-    public required string Name { get; set; }
-    public required string Email { get; set; }
-    public required string PasswordHash { get; set; }
-    public ICollection<Workout>? Workouts { get; set; }
+    public Name Name { get; private set; }
+    public Email Email { get; private set; }
+    public string PasswordHash { get; private set; }
+
+    public User(Name name, Email email, string passwordHash)
+    {
+        Name = name;
+        Email = email;
+        PasswordHash = passwordHash;
+    }
 }

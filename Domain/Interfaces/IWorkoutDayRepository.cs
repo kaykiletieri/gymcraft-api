@@ -1,6 +1,6 @@
 ﻿using GymCraftAPI.Domain.Entities;
 
-namespace GymCraftAPI.Infrastructure.Repositories.Interfaces;
+namespace GymCraftAPI.Domain.Interfaces;
 
 public interface IWorkoutDayRepository
 {

@@ -1,10 +1,9 @@
-﻿
-using GymCraftAPI.Application.DTOs;
-using GymCraftAPI.Application.Helpers;
+﻿using GymCraftAPI.Application.DTOs.ExerciseCategory;
+using GymCraftAPI.Application.Helpers.Interfaces;
 using GymCraftAPI.Application.Services.Interfaces;
 using GymCraftAPI.Domain.Entities;
+using GymCraftAPI.Domain.Interfaces;
 using GymCraftAPI.Infrastructure.Mappers.Interfaces;
-using GymCraftAPI.Infrastructure.Repositories.Interfaces;
 
 namespace GymCraftAPI.Application.Services;
 
@@ -60,6 +59,8 @@ public class ExerciseCategoryService : IExerciseCategoryService
 
     public async Task SoftDeleteAsync(Guid exerciseCategoryUuid)
     {
+        _ = await _exerciseCategoryRepository.GetActiveByIdAsync(exerciseCategoryUuid) ?? throw new KeyNotFoundException("Exercise category not found");
+
         await _exerciseCategoryRepository.SoftDeleteAsync(exerciseCategoryUuid);
     }
 }

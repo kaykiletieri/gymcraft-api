@@ -1,5 +1,5 @@
 ﻿using GymCraftAPI.Domain.Entities;
-using GymCraftAPI.Infrastructure.Repositories.Interfaces;
+using GymCraftAPI.Domain.Interfaces;
 
 namespace GymCraftAPI.Infrastructure.Repositories;
 

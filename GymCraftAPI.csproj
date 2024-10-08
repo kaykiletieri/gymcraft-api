@@ -22,4 +22,12 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\kayki.santos\source\repos\GymCraftAPI\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\kayki.santos\source\repos\GymCraftAPI\.editorconfig" />
+  </ItemGroup>
+
 </Project>

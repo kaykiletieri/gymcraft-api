@@ -1,4 +1,6 @@
-﻿namespace GymCraftAPI.Application.Helpers;
+﻿using GymCraftAPI.Application.Helpers.Interfaces;
+
+namespace GymCraftAPI.Application.Helpers;
 
 public class PropertyUpdater : IPropertyUpdater
 {

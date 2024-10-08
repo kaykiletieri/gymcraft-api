@@ -1,6 +1,6 @@
 ﻿using GymCraftAPI.Application.Services.Interfaces;
 using GymCraftAPI.Domain.Entities;
-using GymCraftAPI.Infrastructure.Repositories.Interfaces;
+using GymCraftAPI.Domain.Interfaces;
 
 namespace GymCraftAPI.Application.Services;
 
@@ -35,6 +35,8 @@ public class WorkoutDayService : IWorkoutDayService
 
     public async Task SoftDeleteAsync(Guid workoutDayUuid)
     {
+        _ = await _workoutDayRepository.GetActiveByIdAsync(workoutDayUuid) ?? throw new KeyNotFoundException("Workout day not found");
+
         await _workoutDayRepository.SoftDeleteAsync(workoutDayUuid);
     }
 }

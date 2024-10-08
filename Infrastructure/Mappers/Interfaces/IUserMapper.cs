@@ -1,4 +1,4 @@
-﻿using GymCraftAPI.Application.DTOs;
+﻿using GymCraftAPI.Application.DTOs.User;
 using GymCraftAPI.Domain.Entities;
 
 namespace GymCraftAPI.Infrastructure.Mappers.Interfaces;

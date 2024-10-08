@@ -1,4 +1,4 @@
-﻿namespace GymCraftAPI.Application.DTOs;
+﻿namespace GymCraftAPI.Application.DTOs.ExerciseCategory;
 
 public record ExerciseCategoryDTO
 {

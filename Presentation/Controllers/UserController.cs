@@ -1,4 +1,4 @@
-﻿using GymCraftAPI.Application.DTOs;
+﻿using GymCraftAPI.Application.DTOs.User;
 using GymCraftAPI.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -81,6 +81,10 @@ public class UserController : ControllerBase
         {
             await _userService.SoftDeleteAsync(userUuid);
             return NoContent();
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
         }
         catch (Exception ex)
         {

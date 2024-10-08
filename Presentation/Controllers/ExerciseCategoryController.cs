@@ -1,4 +1,4 @@
-﻿using GymCraftAPI.Application.DTOs;
+﻿using GymCraftAPI.Application.DTOs.ExerciseCategory;
 using GymCraftAPI.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -68,6 +68,10 @@ public class ExerciseCategoryController : ControllerBase
             ExerciseCategoryDTO updatedExerciseCategory = await _exerciseCategoryService.UpdateAsync(exerciseCategoryUuid, exerciseCategory);
             return Ok(updatedExerciseCategory);
         }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
         catch (Exception ex)
         {
             return StatusCode(500, ex.Message);
@@ -81,6 +85,10 @@ public class ExerciseCategoryController : ControllerBase
         {
             await _exerciseCategoryService.SoftDeleteAsync(exerciseCategoryUuid);
             return NoContent();
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
         }
         catch (Exception ex)
         {

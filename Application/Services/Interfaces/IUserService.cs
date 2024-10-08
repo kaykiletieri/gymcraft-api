@@ -1,4 +1,4 @@
-﻿using GymCraftAPI.Application.DTOs;
+﻿using GymCraftAPI.Application.DTOs.User;
 
 namespace GymCraftAPI.Application.Services.Interfaces;
 
